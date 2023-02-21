@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongodb
+  name: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - image: mongo
+        name: mongo
+        args: ["--dbpath","/data/db"]
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: password
+        volumeMounts:
+        - name: "mongo-data-dir"
+          mountPath: "/data/db"
+        - name: dbinit-script
+          mountPath: /docker-entrypoint-initdb.d 
+      volumes:
+      - name: "mongo-data-dir"
+        persistentVolumeClaim:
+          claimName: "mongo-data"
+      - name: dbinit-script
+        configMap:
+          name: dbinit-script

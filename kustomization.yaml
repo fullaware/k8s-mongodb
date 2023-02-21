@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: mongodb
+resources:
+  - mongodb-namespace.yaml
+  - mongodb-dbinit-configmap.yaml
+  - mongodb-pvc.yaml
+  - mongodb-svc.yaml
+  - mongodb-deployment.yaml
+secretGenerator:
+- name: mongo-creds
+  literals:
+  - username=admin
+  - password=Candy123

@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dbinit-script
+data:
+  dbinit.js: |-
+    db.createUser({
+        user: 'root',
+        pwd: 'toor',
+        roles: [
+            {
+                role: 'readWrite',
+                db: 'asteroids',
+            },
+        ],
+    });
+
+    db = new Mongo().getDB("asteroids");
+
+    db.createCollection('asteroids', { capped: false });
+    db.createCollection('elements', { capped: false });
+
+
+    db.asteroids.insert([{
+    "_id": 1000,
+    "name": "Bennu",
+    "elements": [
+      100,
+      101,
+      108
+    ]
+    },
+    {
+      "_id": 1001,
+      "name": "Ceres",
+      "elements": [
+        106,
+        103,
+        108
+      ]
+    },
+    {
+      "_id": 1002,
+      "name": "Pallas",
+      "elements": [
+        103,
+        102,
+        105
+      ]
+    },
+    {
+      "_id": 1003,
+      "name": "Juno",
+      "elements": [
+        107,
+        106,
+        100
+      ]
+    },
+    {
+      "_id": 1004,
+      "name": "Vesta",
+      "elements": [
+        108,
+        101,
+        103
+      ]
+    },
+    {
+      "_id": 1005,
+      "name": "Astraea",
+      "elements": [
+        105,
+        101,
+        106
+      ]
+    }]);  
+
+    db.elements.insert([{
+      "_id": 107,
+      "label": "magnesium"
+    },
+    {
+      "_id": 106,
+      "label": "silicon"
+    },
+    {
+      "_id": 100,
+      "label": "iron"
+    },
+    {
+      "_id": 101,
+      "label": "nickel"
+    },
+    {
+      "_id": 105,
+      "label": "potassium"
+    },
+    {
+      "_id": 108,
+      "label": "phosphorus"
+    },
+    {
+      "_id": 104,
+      "label": "olivine"
+    },
+    {
+      "_id": 103,
+      "label": "platinum"
+    },
+    {
+      "_id": 102,
+      "label": "cobalt"
+    }])
