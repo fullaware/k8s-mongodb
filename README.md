@@ -8,19 +8,19 @@ kubectl apply -k .
 
 Verify pod is Ready then forward the port `27017` from the `mongodb-svc` to `localhost`
 
-```
+```console
 kubectl port-forward --address 0.0.0.0 svc/mongodb-svc 27017:27017 -n mongodb
 ```
 
 From there we should be able to use `mongosh` client to connect to the MongoDB instance by connecting to `localhost`
 
-```
+```console
 mongosh -u admin -p Candy123
 ```
 
 Once we are in the Mongo Shell, let's look for databases
 
-```
+```console
 test> show dbs
 admin      100.00 KiB
 asteroids   80.00 KiB
@@ -30,14 +30,14 @@ local       72.00 KiB
 
 Now use the `asteroids` database
 
-```
+```console
 test> use asteroids
 switched to db asteroids
 ```
 
 Next we will look at the collections in this database
 
-```
+```console
 asteroids> show collections
 asteroids
 elements
@@ -45,7 +45,7 @@ elements
 
 Find all the documents in the `asteroids` collection
 
-```
+```console
 asteroids> db.asteroids.find()
 [
   { _id: 1000, name: 'Bennu', elements: [ 100, 101, 108 ] },
