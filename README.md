@@ -1,5 +1,7 @@
 # Deploy single MongoDB instance for testing in Kubernetes
 
+Tested on [kind](https://kind.sigs.k8s.io/) 1.25.3 and vanilla Kubernetes 1.25.5.
+
 **NOTE:**  This deployment pattern should not be used in production. Strongly recommend a [StatefulSet for MongoDB Replica Sets](https://phoenixnap.com/kb/kubernetes-mongodb#deploy-a-replica-set).
 
 ```console
